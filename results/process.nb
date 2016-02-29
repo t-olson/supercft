@@ -1,0 +1,154 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4547,        145]
+NotebookOptionsPosition[      4086,        125]
+NotebookOutlinePosition[      4461,        142]
+CellTagsIndexPosition[      4418,        139]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"files", "=", 
+   RowBox[{"FileNames", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<*.txt\>\""}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.6652315808014193`*^9, 3.665231583648921*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"basicBound", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{"files", "[", 
+     RowBox[{"[", 
+      RowBox[{"-", "1"}], "]"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"epsPrime", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{"files", "[", 
+     RowBox[{"[", 
+      RowBox[{"-", "2"}], "]"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"epsGap", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{"files", "[", 
+     RowBox[{"[", 
+      RowBox[{"-", "3"}], "]"}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6652312640678587`*^9, 3.6652312746780767`*^9}, {
+   3.6652315975097446`*^9, 3.665231597822871*^9}, 3.665249454030151*^9, {
+   3.665249494988413*^9, 3.665249495147884*^9}, {3.6652717404540033`*^9, 
+   3.665271745041974*^9}, {3.6652718295136023`*^9, 3.665271872549905*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"plot", "[", "m_", "]"}], ":=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Length", "[", 
+       RowBox[{"m", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "]"}], "\[Equal]", "2"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ListPlot", "[", 
+      RowBox[{"m", "[", 
+       RowBox[{"[", 
+        RowBox[{"2", ";;", 
+         RowBox[{"-", "2"}]}], "]"}], "]"}], "]"}], ",", 
+     RowBox[{"With", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"goods", " ", "=", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ";;", "2"}], "]"}], "]"}], "&"}], "/@", 
+           RowBox[{"Select", "[", 
+            RowBox[{
+             RowBox[{"m", "[", 
+              RowBox[{"[", 
+               RowBox[{"2", ";;", 
+                RowBox[{"-", "2"}]}], "]"}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"#", "[", 
+               RowBox[{"[", "3", "]"}], "]"}], "&"}]}], "]"}]}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"bads", " ", "=", " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", 
+              RowBox[{"1", ";;", "2"}], "]"}], "]"}], "&"}], "/@", 
+           RowBox[{"Select", "[", 
+            RowBox[{
+             RowBox[{"m", "[", 
+              RowBox[{"[", 
+               RowBox[{"2", ";;", 
+                RowBox[{"-", "2"}]}], "]"}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"!", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "3", "]"}], "]"}]}], "&"}]}], "]"}]}]}]}], "}"}],
+        ",", " ", 
+       RowBox[{"ListPlot", "[", 
+        RowBox[{"{", 
+         RowBox[{"goods", ",", " ", "bads"}], "}"}], "]"}]}], "]"}]}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.665249295656563*^9, 3.6652494310293093`*^9}, {
+  3.665271951659379*^9, 3.6652719628567467`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"plot", "[", "basicBound", "]"}]], "Input",
+ CellChangeTimes->{{3.6652719645058126`*^9, 3.6652719702484283`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"plot", "[", "epsPrime", "]"}]], "Input",
+ CellChangeTimes->{{3.665271999225382*^9, 3.665272000535694*^9}}],
+
+Cell[BoxData[
+ RowBox[{"plot", "[", "epsGap", "]"}]], "Input",
+ CellChangeTimes->{{3.665272012391374*^9, 3.6652720139419317`*^9}}]
+},
+WindowSize->{808, 851},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+Magnification->1.25,
+FrontEndVersion->"10.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 9, \
+2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 261, 7, 36, "Input"],
+Cell[822, 29, 874, 22, 78, "Input"],
+Cell[1699, 53, 1978, 58, 120, "Input"],
+Cell[3680, 113, 136, 2, 36, "Input"],
+Cell[3819, 117, 130, 2, 36, "Input"],
+Cell[3952, 121, 130, 2, 36, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
