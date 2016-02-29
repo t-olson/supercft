@@ -1,0 +1,21 @@
+#!/bin/bash
+###################################
+#
+# bootconfig
+#
+# Configuration script for pycftboot
+# dependencies
+#
+# Author: T. Olson
+#
+# Last modified: 2/24/16
+#
+###################################
+
+# load modules
+module load python/2.7.5 cmake/3.1.2 gcc/4.8.0 boost/1.57.0-gcc-4.8.0 lsa mpfr
+
+# update paths
+INSTALLPATH=$HOME
+export LD_LIBRARY_PATH=$INSTALLPATH/lib:$LD_LIBRARY_PATH
+export PATH=$INSTALLPATH/bin:$PATH

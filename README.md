@@ -10,6 +10,7 @@ bootconfig
 installboot.sh
 ```
 
+#####Installation procedure:
 0. If you do not want it to install to your `$HOME` directory, edit the `$INSTALLPATH` in both files (make sure they agree).
 1. Load all modules and set paths by executing `source bootconfig`
 2. Copy `bootconfig` to the folder specified by `$INSTALLPATH` (default `$HOME`).
