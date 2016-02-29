@@ -11,10 +11,10 @@ Use variations on the following code to read/write tables:
 
 > `if os.path.isfile(table_path + table_name):`
 
->     `table = bootstrap.ConformalBlockTable(0,0,0,0,0,0,0,0,table_path + table_name)`
+>     table = bootstrap.ConformalBlockTable(0,0,0,0,0,0,0,0,table_path + table_name)
 
 > `else:`
 
->     `table = bootstrap.ConformalBlockTable(dim, k_max, l_max, m_max, n_max, delta_12, delta_34, odd_spins)`
+>     table = bootstrap.ConformalBlockTable(dim, k_max, l_max, m_max, n_max, delta_12, delta_34, odd_spins)
 
->     `table.dump(table_path + table_name)`
+>     table.dump(table_path + table_name)
