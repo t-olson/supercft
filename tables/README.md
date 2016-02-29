@@ -6,9 +6,15 @@ Desired format -- see code snippet below.
 Use variations on the following code to read/write tables:
 
 > `table_path = "./tables/"`
+
 > `table_name = "d" + str(dim) + "_k" + str(k_max) + "_L" + str(l_max) + "_m"+ str(m_max) + "_n" + str(n_max) + "_delta12_" + str(delta_12) + "_delta34_" + str(delta_34) + "_oddL_" + str(odd_spins) `
-> `if os.path.isfile(table_path + table_name):
-    table = bootstrap.ConformalBlockTable(0,0,0,0,0,0,0,0,table_path + table_name)
-else:    
-    table = bootstrap.ConformalBlockTable(dim, k_max, l_max, m_max, n_max, delta_12, delta_34, odd_spins)
-    table.dump(table_path + table_name)`
+
+> `if os.path.isfile(table_path + table_name):`
+
+>     `table = bootstrap.ConformalBlockTable(0,0,0,0,0,0,0,0,table_path + table_name)`
+
+> `else:`
+
+>     `table = bootstrap.ConformalBlockTable(dim, k_max, l_max, m_max, n_max, delta_12, delta_34, odd_spins)`
+
+>     `table.dump(table_path + table_name)`
