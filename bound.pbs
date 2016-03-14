@@ -1,0 +1,17 @@
+#PBS -V 
+#PBS -S /bin/bash
+#PBS -N cft_hi_prec_run
+#PBS -A lsa_flux
+#PBS -l qos=flux
+#PBS -q flux
+#PBS -l pmem=3750mb
+#PBS -l walltime=8:00:00
+#PBS -l nodes=1:ppn=16
+#PBS -M timolson@umich.edu 
+#PBS -m abe 
+#PBS -j oe 
+
+## END PBS PREAMBLE ##
+
+cd ~/supercft/scripts
+time python hi_prec_single_bound.py
