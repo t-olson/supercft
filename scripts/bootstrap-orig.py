@@ -25,10 +25,6 @@ from symengine import *
 from symengine.lib.symengine_wrapper import *
 import sympy
 
-# Set MAX_THREADS to 4 by default unless env variable $PBS_NP is set
-import os
-MAX_THREADS = os.getenv('PBS_NP', 4)
-
 if have_mpfr == False:
     print("Symengine must be compiled with MPFR support")
     quit(1)
@@ -1682,7 +1678,7 @@ class SDP:
         self.write_xml(obj, self.unit, name)
 
         with open(name + ".log", "a+") as log_file:
-            subprocess.Popen(["sdpb", "-s", name + ".xml", "--maxThreads=" + str(MAX_THREADS) "--precision=" + str(prec), "--findPrimalFeasible", "--findDualFeasible", "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
+            subprocess.Popen(["sdpb", "-s", name + ".xml", "--precision=" + str(prec), "--findPrimalFeasible", "--findDualFeasible", "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
         log_file.close()
         out_file = open(name + ".out", 'r')
         terminate_line = next(out_file)
@@ -1764,7 +1760,7 @@ class SDP:
 
         self.write_xml(obj, norm, name)
         with open(name + ".log", "a+") as log_file:
-            subprocess.Popen(["sdpb", "-s", name + ".xml", "--maxThreads=" + str(MAX_THREADS), "--precision=" + str(prec), "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
+            subprocess.Popen(["sdpb", "-s", name + ".xml", "--precision=" + str(prec), "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
         log_file.close()
         out_file = open(name + ".out", 'r')
         next(out_file)
@@ -1801,7 +1797,7 @@ class SDP:
         self.set_bound(spin_irrep, old)
 
         with open(name + ".log", "a+") as log_file:
-            subprocess.Popen(["sdpb", "-s", name + ".xml", "--maxThreads=" + str(MAX_THREADS), "--precision=" + str(prec), "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
+            subprocess.Popen(["sdpb", "-s", name + ".xml", "--precision=" + str(prec), "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
         log_file.close()
         out_file = open(name + ".out", 'r')
         for i in range(0, 7):

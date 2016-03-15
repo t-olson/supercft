@@ -1,3 +1,6 @@
+# Hide our results #
+####################
+results/*
 
 # Compiled source #
 ###################
@@ -7,6 +10,7 @@
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
@@ -26,6 +30,8 @@
 *.log
 *.sql
 *.sqlite
+*.out
+*.xml
 
 # OS generated files #
 ######################
