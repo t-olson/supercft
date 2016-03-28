@@ -3,8 +3,8 @@
 import bootstrap
 import os
 import datetime
-table_path = "./tables/"
-results_path = "./results/"
+table_path = "../tables/"
+results_path = "../results/"
 
 bootstrap.cutoff = 1e-10
 

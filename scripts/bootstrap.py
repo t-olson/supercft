@@ -1682,7 +1682,7 @@ class SDP:
         self.write_xml(obj, self.unit, name)
 
         with open(name + ".log", "a+") as log_file:
-            subprocess.Popen(["sdpb", "-s", name + ".xml", "--maxThreads=" + str(MAX_THREADS) "--precision=" + str(prec), "--findPrimalFeasible", "--findDualFeasible", "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
+            subprocess.Popen(["sdpb", "-s", name + ".xml", "--maxThreads=" + str(MAX_THREADS), "--precision=" + str(prec), "--findPrimalFeasible", "--findDualFeasible", "--noFinalCheckpoint"] + self.options, stdout=log_file).wait()
         log_file.close()
         out_file = open(name + ".out", 'r')
         terminate_line = next(out_file)
