@@ -1,0 +1,17 @@
+#PBS -V 
+#PBS -S /bin/bash
+#PBS -N supercft_hi_prec_run_d=4
+#PBS -A lsa_flux
+#PBS -l qos=flux
+#PBS -q flux
+#PBS -l pmem=3750mb
+#PBS -l walltime=8:00:00
+#PBS -l nodes=1:ppn=16
+#PBS -M amchar@umich.edu 
+#PBS -m abe 
+#PBS -j oe 
+
+## END PBS PREAMBLE ##
+
+cd ~/supercft/scripts
+time python super_single_bound_4d.py
