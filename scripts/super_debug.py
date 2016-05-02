@@ -7,27 +7,33 @@ table_path = "../tables/"
 results_path = "../results/"
 
 #Cut-off for dropping poles with small residues
-#I set this to 1e-10, but that seemed to rule out everything
-bootstrap.cutoff = 0
+#Setting to zero seems to allow everything
+bootstrap.cutoff = 1e-10
 
 #Make sure 2 < dim < 4, since double poles appear at even dimensions
 #Approximate endpoints with 2.01 and 3.99
-dim = 3
+#Maybe also avoid d = 3, some of the superconformal coeffs. vanish with integer cancellations
+dim = 3.01
 print("Doing bootstrap with dim = " + str(dim) + "\n")
+
+#Set up the [delta_phi, delta_eps] points that you want to test
+#Right now code is only implemented for pair1, but that's easily modified
+pair1 = [0.74, 1.5]
+pair2 = [0.77, 1.5]
 
 #Upper and lower bounds on what dimensions to bisect on
 #In Bobev et. al.'s results, dim_eps is roughly somewhere between dim - 2 and dim + 0.5.
-lower_eps = 1.51
+lower_eps = 1.2
 upper_eps = 3.5
 
 #Channel we're bisecting on
 channel = 0
 
 #SDPB parameters
-k_max = 35
-l_max = 36
-n_max = 7
-m_max = 1
+k_max = 25
+l_max = 26
+n_max = 5
+m_max = 3
 odd_spins = True
 delta_12 = 0
 delta_34 = 0
@@ -79,41 +85,46 @@ vec3 = [[0, 0], [1, 0], [-1, 1]]
 info = [[vec1, 0, "singlet"], [vec2, 1, "antisymmetric"], [vec3, 0, "symmetric"]]
 print("Done.\n")
 
-#Set up the [delta_phi, delta_eps] points that you want to test
-#Right now code is only implemented for pair1, but that's easily modified
-pair1 = [0.9, 3.3]
-#pair2 = [0.9, 2.0]
-
 print("Initialize the sdp...")
 sdp1 = bootstrap.SDP(pair1[0], tab_list, vector_types = info)
-#sdp2 = bootstrap.SDP(pair2[0], tab_list, vector_types = info)
+sdp2 = bootstrap.SDP(pair2[0], tab_list, vector_types = info)
 print("Done.\n")
 
 print("Setting bounds on the sdp...")
 # Goes through all spins, tells the symmetric channel to contain a BPS operator and then a gap.
+# Also need antichiral operator in phi-phi OPE, where l = 0 and dim_phi < d/4
 for l in range(0, l_max + 1, 2):
     sdp1.add_point([l, "symmetric"], 2 * pair1[0] + l)
+    if l == 0 and pair1[0] <= dim/4.0:
+        dim_anti = dim - 2 * pair1[0]
+        print("Antichiral operator in sdp1, since spin = " + str(l) + " and dim_phi = " + str(pair1[0]) + "; antichiral_dim = " + str(dim_anti) + ".")
+        sdp1.add_point([0, "symmetric"], dim_anti)
     sdp1.set_bound([l, "symmetric"], abs(2 * pair1[0] - dim + 1) + dim - 1 + l)
-    #sdp2.add_point([l, "symmetric"], 2 * pair2[0] + l)
-    #sdp2.set_bound([l, "symmetric"], abs(2 * pair2[0] - dim + 1) + dim - 1 + l)
-        
-# Need to also account for the antichiral case for the phi-phi OPE
-if pair1[0] < dim/4.0:
-    sdp1.add_point([0, "symmetric"], dim - 2 * pair1[0])
 
-#if pair2[0] < dim/4.0:
-#    sdp2.add_point([0, "symmetric"], dim - 2 * pair2[0])
+    sdp2.add_point([l, "symmetric"], 2 * pair2[0] + l)
+    if l == 0 and pair2[0] <= dim/4.0:
+        dim_anti = dim - 2 * pair2[0]
+        print("Antichiral operator in sdp2, since spin = " + str(l) + " and dim_phi = " + str(pair2[0]) + "; antichiral_dim = " + str(dim_anti) + ".")
+        sdp2.add_point([0, "symmetric"], dim_anti)
+    sdp2.set_bound([l, "symmetric"], abs(2 * pair2[0] - dim + 1) + dim - 1 + l)
 
 #Tells sdp that we want to look at the dim_eps value in pair1
 sdp1.set_bound([0, "singlet"],pair1[1])
+sdp2.set_bound([0, "singlet"],pair2[1])
 
 #Sets the dualErrorThreshold
 #I'm not sure if this is where we need to crank up the accuracy to get results
-sdp1.set_option("dualErrorThreshold", 1e-20)
+sdp1.set_option("dualErrorThreshold", 1e-22)
 print("Done.\n")
 
 print("Now, iterate!  Is (" + str(pair1[0]) + ", " + str(pair1[1]) + ") allowed?")
 allowed = sdp1.iterate()
+if (allowed):
+    print("Yes!")
+else:
+    print("No...")
+print("Is (" + str(pair2[0]) + ", " + str(pair2[1]) + ") allowed?")
+allowed = sdp2.iterate()
 if (allowed):
     print("Yes!")
 else:
